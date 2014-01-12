@@ -1,0 +1,134 @@
+/* header, sidebar */
+header {
+  color:$color_secondary;
+}
+  nav ul {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+  nav li {
+    padding-left:10px;
+
+    &.active {
+      a {
+        color:$color_1_dark;
+      }
+    }
+  }
+
+  nav h3 {
+    margin-bottom:.4em;
+    font-weight: normal;
+  }
+  
+#branding {
+  position: relative;
+}
+  #branding #logoactions {
+    /*position: absolute;
+    right:37px;
+    top:-7px;*/
+  }
+
+  #logo {
+    margin:20px 0 5px;
+    font-size: 2em;
+    white-space: nowrap;
+    letter-spacing: .02em;
+  /*
+    a {
+      line-height: 44px;
+      -webkit-perspective: 1000px;
+      -moz-perspective: 1000px;
+      perspective: 1000px;
+
+      span { // TODO: supposed to be single container but is not in case of #logo
+        position: relative;
+        display: inline-block;
+        padding: 0 14px;
+        background: #2195de;
+        -webkit-transition: -webkit-transform 0.3s;
+        -moz-transition: -moz-transform 0.3s;
+        transition: transform 0.3s;
+        -webkit-transform-origin: 50% 0;
+        -moz-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+
+        &::before { // should be bound to capability .csstransforms3d
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #0965a0;
+          content: attr(data-hover);
+          -webkit-transition: background 0.3s;
+          -moz-transition: background 0.3s;
+          transition: background 0.3s;
+          -webkit-transform: rotateX(-90deg);
+          -moz-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+          -webkit-transform-origin: 50% 0;
+          -moz-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+        }
+      }
+
+      &:hover span,
+      &:focus span {
+        -webkit-transform: rotateX(90deg) translateY(-22px);
+        -moz-transform: rotateX(90deg) translateY(-22px);
+        transform: rotateX(90deg) translateY(-22px);
+      }
+
+      &:hover span::before,
+      &:focus span::before {
+        background: #28a2ee;  
+      }
+    }
+  */
+}
+
+h3#subtitle {
+  font-weight:normal;
+  font-size:1em;
+  margin:0;
+}
+
+
+/* interactive classes */
+.collapsible {
+  
+}
+
+.collapsed {
+  overflow: hidden;
+}
+  
+#collapse-site {
+  position:absolute; 
+  top:10px; 
+  left:194px; 
+  z-index:9999;
+
+  padding: 5px;
+  line-height: 0;
+
+  > span {
+    color: inherit;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 1.2em;
+    padding: 0 0 1px 0;
+
+    @include transform(rotate(90deg));
+  }
+
+  &.active > span {
+    @include transform(rotate(-90deg));
+  }
+}

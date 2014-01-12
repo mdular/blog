@@ -1,0 +1,11 @@
+// set all icons to inline-block
+[class^='icon-'] {
+	display: inline-block;
+
+	.lt-ie8 & {
+		@include inline-block;
+	}
+}
+
+// generate sprite images and class selectors
+@include spritemap('icon', 'icon2x');

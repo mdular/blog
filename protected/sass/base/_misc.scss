@@ -1,0 +1,16 @@
+::-moz-selection { 
+	background: lighten($c-negative, 10%);
+	color: $c-positive;
+	text-shadow: none; 
+}
+::selection { 
+	background: lighten($c-negative, 10%);
+	color: $c-positive;
+	text-shadow: none;
+}
+
+.hide-text {
+	text-indent: 110%;
+    white-space: nowrap;
+    overflow: hidden;
+}

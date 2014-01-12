@@ -1,0 +1,33 @@
+
+/* framework imports*/
+@import "compass/css3";
+
+// TODO: make modules into framework with separate repo
+/* modules */
+@import "ssauce/_directional";
+@import "ssauce/_tools";
+@import "ssauce/_sprite";
+@import "ssauce/_fonticon";
+
+/* theme configuration */
+@import "config/_mdular";
+
+/* theme base */
+@import "base/_normalize";
+@import "base/_layout";
+@import "base/_typography";
+@import "base/_form";
+@import "base/_misc";
+@import "base/_print";
+@import "base/_buttons";
+
+/* theme parts */
+@import "parts/_header";
+@import "parts/_main";
+@import "parts/_footer";
+@import "parts/_pagination";
+@import "parts/_icons";
+
+/* theme pages */
+@import "pages/_index";
+@import "pages/_contact";

@@ -1,0 +1,53 @@
+/**
+* directional mixins and helpers
+* @author Markus J Doetsch http://mdular.com
+*/
+
+/* 
+ * override compass built-in clearfix with additional compatibility mode
+ * in case overflow:hidden is not an acceptable solution
+ */ 
+@mixin clearfix($compatibility-mode: false) {
+  @if $compatibility-mode == false {
+    overflow: hidden;
+  } @else {
+    //IE6+, ff, webkit, opera
+    zoom: 1;
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    &:before {
+      content: "";
+      display: table;
+    }
+  }
+}
+
+/*
+ * crossbrowser transparent background, progressive
+ */
+@mixin alpha-background($color, $alpha){
+  $acolor: transparentize($color, 1 - $alpha);
+
+  // fallback -> currently not needed since IE8+ falls back to filters and we don't support lower browsers
+  //background: $color;
+
+  // progressive
+  background: $acolor;
+
+  // ie 6, 7 // buggy -> fix if required
+  //filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str($acolor)}, endColorstr=##{ie-hex-str($acolor)});
+  // ie 8
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str($acolor)}, endColorstr=#{ie-hex-str($acolor)})";
+}
+
+/*
+ * gradient background
+ */
+@mixin background-gradient($start, $end, $direction: top){
+  background-color: $end;
+  background-image: -ms-linear-gradient($direction, $start, $end);
+  @include background(linear-gradient($direction, $start, $end));
+}

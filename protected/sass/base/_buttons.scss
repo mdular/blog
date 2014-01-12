@@ -1,0 +1,33 @@
+.btn {
+	//&:focus,
+	&:active {
+		outline: 0;
+	}
+}
+
+input[type=submit],
+button,
+.btn-primary {
+	background: lighten($color_2_dark, 10%);
+	color: $c-positive;
+	border: 0;
+	padding: 4px 10px;
+
+	&:hover,
+	&:active {
+		background: lighten($color_2_dark, 20%);
+	}
+}
+
+.btn-clean {
+	border: $border-style1;
+	@include border-radius(2px);
+	padding: 0 8px;
+	color: darken($c-positive, 20%);
+
+	&:hover,
+	&:active {
+		border-color: darken($c-positive, 30%);
+		color: darken($c-positive, 30%);
+	}
+}

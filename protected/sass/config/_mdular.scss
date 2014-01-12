@@ -1,0 +1,53 @@
+$ltr: true !default;
+
+/* colors, backgrounds */
+
+/* good vs evil */
+$c-positive: white;
+$c-negative: black;
+
+$c-error: red;
+
+$color_main: #494949;
+$color_mainbg: #fff;
+.color_main { color: $color_main }
+.bg_main { background: $color_mainbg } /* url('../img/tmp_bg.jpg') */
+.bg_main_transparent { zoom: 1;filter: alpha(opacity=80);opacity: 0.8;background-color:$color_mainbg; }
+
+$color_secondary: #535353;
+.color_secondary { color: $color_secondary }
+
+$color_1_light: #c3cacb; /* cool gray light */
+$color_1_dark: #a1adaf; /* cool gray dark */
+.color_1_light { color: $color_1_light }
+.color_1_dark { color: $color_1_dark }
+
+$color_2_light: #c3cacb; /* cool gray light */
+$color_2_dark: #0e3d59; /* cool gray dark */
+.color_2_light { color: $color_2_light }
+.color_2_dark { color: $color_2_dark }
+
+$color_3_light: #c3cacb; /* cool gray light */
+$color_3_dark: #88a61b; /* cool gray dark */
+.color_3_light { color: $color_3_light }
+.color_3_dark { color: $color_3_dark }
+
+$color_4_light: #c3cacb; /* cool gray light */
+$color_4_dark: #f29f05; /* cool gray dark */
+.color_4_light { color: $color_4_light }
+.color_4_dark { color: $color_4_dark }
+
+$color_5_light: #c3cacb; /* cool gray light */
+$color_5_dark: #f25c05; /* cool gray dark */
+.color_5_light { color: $color_5_light }
+.color_5_dark { color: $color_5_dark }
+
+$color_6_light: #c3cacb; /* cool gray light */
+$color_6_dark: #c52222; /* cool gray dark */
+.color_6_light { color: $color_6_light }
+.color_6_dark { color: $color_6_dark }
+
+$img_sprite: url('../img/sprite.png') left top no-repeat;
+
+// style packages
+$border-style1: 1px solid darken($c-positive, 20%);

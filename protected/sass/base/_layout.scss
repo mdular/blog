@@ -1,0 +1,209 @@
+/* layout */
+html, body {
+  //overflow: auto;
+  //position:relative;
+}
+
+html {
+  //height:100%;
+}
+
+body {
+  //min-height: 100%;
+}
+
+    /*
+  .csstransforms3d body {
+  -moz-perspective: 500px;
+  -ms-perspective: 500px;
+  -o-perspective: 500px;
+  -webkit-perspective: 500px;
+  }
+  */
+  
+#background {
+  position:fixed; 
+  width:100%; 
+  height:100%;
+  z-index:-1; // 0 or higher disables scrollbars... o.O
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+
+  transition: opacity, 1s;
+  -webkit-transition: opacity, 1s;
+
+  transition: filter, 1s;
+  -webkit-transition: filter, 1s;
+
+  &.inactive {
+    opacity: 0.5;
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    filter: progid:DXImageTransform.Microsoft.Blur(pixelradius=30, enabled='false');
+    -ms-filter: blur(3px);
+  }
+}
+
+#sitewrapper {
+  position:relative;
+  //min-height: 100%;
+  //margin:auto;
+  //z-index: 2;
+
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+#site { 
+  display: inline-block;
+  vertical-align: top;
+  //min-width:770px;
+  min-width: 650px;
+  max-width: 80%;
+  min-height: 100%;
+  position:relative;
+  //margin:auto;
+  border-left:1px solid $color_1_light;
+  border-right:1px solid $color_1_light;
+  //box-sizing: border-box;
+  @include box-sizing(border-box);
+  //padding-bottom: 20px;
+}
+    /*
+  .csstransforms3d #site {
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    -webkit-transform:none;
+    
+    $torigin: center top;
+    -moz-transform-origin: $torigin;
+    -ms-transform-origin: $torigin;
+    -o-transform-origin: $torigin;
+    -webkit-transform-origin: $torigin;
+    
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    */
+    /* pointer-events: none; */
+    /*
+  }
+  .csstransforms3d #site.collapsed {
+   
+    -moz-transform: rotateX(70deg);
+    -ms-transform: rotateX(70deg);
+    -o-transform: rotateX(70deg);
+    -webkit-transform: rotateX(70deg);
+    
+    -moz-transform-origin: center top;
+    -ms-transform-origin: center top;
+    -o-transform-origin: center top;
+    -webkit-transform-origin: center top;
+  }
+    */
+
+  #site > header {
+    float:left; 
+    width:220px; 
+    height: 100%;
+    padding:25px 20px 0;
+    border-right:1px solid $color_1_light;
+    //box-sizing: border-box;
+    @include box-sizing(border-box);
+  }
+  #site > section#main { 
+    padding:25px 10px 0 10px; 
+    @include clearfix;
+    //box-sizing: border-box;
+    @include box-sizing(border-box);
+  }
+  body > footer {
+    position:fixed;
+    z-index:5000;
+    bottom:0px;
+    left:15px;
+    font-size:.8em;
+    font-weight:normal;
+    padding: 0 5px;
+    
+    background:white;
+  }
+
+
+
+
+/* layouts */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
+}
+
+/* TODO: make default layout mobile first! */
+/* TODO: create variant with navigation on top for smaller screens (also disables background if page is shown -> via js) */
+@media only screen and (max-width: 650px) { // +15px for scrollbar
+  #background {
+    filter: none;
+
+    &.inactive {
+      display: none;
+    }
+  }
+
+  #site > header {
+    float:none;
+    border-right: none;
+    height: auto;
+    min-height: 0 !important;
+    width: auto;
+    overflow: hidden;
+    padding: 10px;
+
+    #branding {
+      float: left;
+      margin-right: 20px;
+    }
+
+    > nav {
+      float: left;
+      margin-top: 14px;
+
+      > div {
+          display: inline-block;
+          vertical-align: top;
+          margin-right: 10px;
+
+        > ul {
+          margin-bottom: 0;
+
+          > li {
+            padding-left: 0;
+          }
+        }
+      }      
+    }
+  }
+
+  #site {
+    min-width: 320px; // -15px for scrollbar
+    width: 100%;
+    max-width: 100%;
+    border: none;
+  }
+
+  #site > #main {
+    padding-top:0 !important;
+    min-height: 0 !important;
+  }
+
+  .breadcrumbs {
+    position: static !important;
+  }
+
+  body > footer {
+    position: static;
+    //bottom: 0;
+    padding-left: 10px;
+  }
+}

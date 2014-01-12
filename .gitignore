@@ -1,0 +1,14 @@
+.DS_Store
+.project
+.svn
+vendor
+private
+composer.lock
+protected/.sass-cache
+dev.mdular.com.php
+mdular.dev.php
+protected/runtime/*
+public/assets/*
+public/demos
+public/img/upload/*
+public/js/tinymce

@@ -1,0 +1,90 @@
+/* Typography */
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v8/Zd2E9abXLFGSr9G3YK2MsG8ITcfo9NwJpvZiO7_FxEg.eot);
+  src: local('Roboto Condensed Regular'), local('RobotoCondensed-Regular'), url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v8/Zd2E9abXLFGSr9G3YK2MsG8ITcfo9NwJpvZiO7_FxEg.eot) format('embedded-opentype'), url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v8/Zd2E9abXLFGSr9G3YK2MsFzqCfRpIA3W6ypxnPISCPA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v8/b9QBgL0iMZfDSpmcXcE8nJTpJ4fOLLwmHp8vl0kIMg4.eot);
+  src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'), url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v8/b9QBgL0iMZfDSpmcXcE8nJTpJ4fOLLwmHp8vl0kIMg4.eot) format('embedded-opentype'), url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v8/b9QBgL0iMZfDSpmcXcE8nCSLrGe-fkSRw2DeVgOoWcQ.woff) format('woff');
+}
+
+body {
+  font:13px/1.5em 'Roboto Condensed', Tahoma, Helvetica, Arial, sans-serif;
+  color:$color_main;
+  background:$color_mainbg;
+}
+
+h1 {
+  font-size:1.8em;
+  line-height: 1.1em;
+  letter-spacing:.03em;
+  font-weight:normal;
+}
+h2 {
+  font-size:1.5em;
+  line-height: 1.1em;
+  letter-spacing:.03em;
+  font-weight:normal;
+}
+h3 {
+  //font-weight:normal;
+}
+
+// paragraphs after heading are pulled up
+h2 + p,
+h3 + p,
+h4 + p {
+  margin-top: -.8em;
+}
+
+
+
+
+pre {
+  background: darken($color_mainbg, 5%);
+  padding: .2em .5em;
+  border-left: .5em solid darken($color_mainbg, 10%);
+  //counter-reset: linenumbers;
+}
+/*
+pre:before {
+    color: #aaa;
+    content: counter(linenumbers);
+    counter-increment: linenumbers;
+    margin-left: -2em;
+    position: absolute;
+    text-align: right;
+}
+*/
+
+/* Links */
+
+a {
+  &:not(.btn) {
+    transition: color .2s;
+  }
+}
+
+a, a:visited, a:active {
+  color:$color_1_dark;
+  text-decoration: none;
+}
+  nav a, nav a:visited, nav a:active {
+    color:$color_secondary;
+  }
+a:hover {
+  color:$color_1_light;
+}
+  nav a:hover {
+    color:$color_1_dark;
+  }
+.title a {
+  color: $color_main;
+  &:hover { color: $color_1_dark; }
+}

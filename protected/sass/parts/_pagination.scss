@@ -1,0 +1,40 @@
+/* pagination */
+.pagination {
+  margin-top: 20px;
+  overflow: hidden;
+
+  .next,
+  .prev {
+    font-weight: bold;
+  }
+
+  .next {
+    float: right;
+  }
+
+  .items {
+    clear: right;
+    text-align: right;
+
+    > a {
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      border: 1px solid grey;
+      text-align: center;
+      margin: 0 3px;
+
+      &.active {
+        border: 1px dashed grey;
+      }
+
+      &:hover {
+        background: lightgrey;
+        color: black;
+
+        transition: background, .3s;
+        transition: color, .3s;
+      }
+    }
+  }
+}
