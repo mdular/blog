@@ -17,13 +17,7 @@ class UserIdentity extends CUserIdentity
 	{
 	  $username = strtolower($this->username);
     $user = User::model()->find('LOWER(username) = ?', array($username));
-    /*
-    echo "<pre>";
-    print_r($this);
-    echo "<hr>";
-    print_r($user->attributes);
-    */
-    
+
     if($user === null){
       $this->errorCode=self::ERROR_USERNAME_INVALID;
     }elseif(!$user->validatePassword($this->password)){
