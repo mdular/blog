@@ -10,8 +10,9 @@ $(document).ready(function () {
             menubar : false,
             //content_css: "css/content.css",
             plugins: "code image link",
-            //toolbar: "code" 
-            toolbar: "undo redo | styleselect | bold italic underline strikethrough | blockquote alignleft aligncenter alignright alignjustify | bullist numlist | link image | code"
+            // info: http://www.tinymce.com/wiki.php/Configuration:toolbar
+            // list: http://www.tinymce.com/wiki.php/Controls
+            toolbar: "undo redo | styleselect | bold italic underline strikethrough | blockquote alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | link image | code"
             /*
 		    image_list: [ 
 		        {title: 'My image 1', value: 'http://www.tinymce.com/my1.gif'}, 
