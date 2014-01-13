@@ -9,7 +9,9 @@ $(document).ready(function () {
             selector : ".tinymce",
             menubar : false,
             //content_css: "css/content.css",
-            plugins: "code image link"
+            plugins: "code image link",
+            //toolbar: "code" 
+            toolbar: "undo redo | styleselect | bold italic underline strikethrough | blockquote alignleft aligncenter alignright alignjustify | bullist numlist | link image | code"
             /*
 		    image_list: [ 
 		        {title: 'My image 1', value: 'http://www.tinymce.com/my1.gif'}, 
