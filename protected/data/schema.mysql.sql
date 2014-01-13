@@ -83,6 +83,19 @@ CREATE TABLE `tbl_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+# Dump of table tbl_image
+# ------------------------------------------------------------
+CREATE TABLE `tbl_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) DEFAULT NULL,
+  `file` varchar(128) NOT NULL DEFAULT '',
+  `size` int(11) NOT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+
 
 # Dump of table tbl_user
 # ------------------------------------------------------------
