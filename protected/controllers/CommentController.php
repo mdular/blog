@@ -43,7 +43,7 @@ class CommentController extends Controller
 			),
 			array('allow',
 				'actions' => array('create'),
-				'users'=>array(Yii::app()->params['commentEnabled'] ? '*' : '@'), // only allow create access if comment feature enabled
+				'users'=>array(Yii::app()->params['commentsEnabled'] ? '*' : '@'), // only allow create access if comment feature enabled
  			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('update'),
