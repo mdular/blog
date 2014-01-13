@@ -115,20 +115,16 @@ h3#subtitle {
   left:194px; 
   z-index:9999;
 
-  padding: 5px;
-  line-height: 0;
+  padding: 0 5px;
+  font-size: .7em;
+  line-height: 1.2em;
 
-  > span {
-    color: inherit;
-    display: inline-block;
-    font-family: Arial, sans-serif;
-    font-size: 1.2em;
-    padding: 0 0 1px 0;
-
-    @include transform(rotate(90deg));
+  &:before {
+    display: block;
+    content: '\25B2';
   }
 
-  &.active > span {
-    @include transform(rotate(-90deg));
+  &.active:before {
+    content: '\25BC';
   }
 }

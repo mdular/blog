@@ -28,6 +28,6 @@ button,
 	&:hover,
 	&:active {
 		border-color: darken($c-positive, 30%);
-		color: darken($c-positive, 30%);
+		color: darken($c-positive, 50%);
 	}
 }

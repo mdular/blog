@@ -21,7 +21,7 @@ Mdular.collapsible = function(sel){
   var $el = $(sel),
       id = $el.attr('id'),
       btnId = 'collapse-'+id,
-      butHtml = '<a href="#" class="btn btn-clean" rel="'+id+'" id="'+btnId+'"><span>&laquo;</span></a>';
+      butHtml = '<a href="#" class="btn btn-clean" rel="'+id+'" id="'+btnId+'"></a>';
 
   // insert the button
   $el.parent().append(butHtml);
