@@ -64,6 +64,7 @@ CREATE TABLE `tbl_post` (
   `status` int(11) NOT NULL,
   `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
+  `publish_time` int(11) DEFAULT NULL,
   `author_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_post_author` (`author_id`),

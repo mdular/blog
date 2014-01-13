@@ -41,6 +41,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'publish_time'); ?>
+		<?php echo $form->textField($model,'publish_time'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'author_id'); ?>
 		<?php echo $form->textField($model,'author_id'); ?>
 	</div>

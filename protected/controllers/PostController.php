@@ -28,7 +28,7 @@ class PostController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and actions
+			array('allow',  // allow all users to perform 'index' actions
 				'actions'=>array('index'),
 				'users'=>array('*'),
 			),
@@ -183,7 +183,7 @@ class PostController extends Controller
 	{
 	  $criteria = new CDbCriteria(array(
       'condition' => 'status = ' . Post::STATUS_PUBLISHED,
-      'order'     => 'update_time DESC',
+      'order'     => 'create_time DESC',
       'with'      => 'commentCount'
     ));
     if(isset($_GET['tag'])){

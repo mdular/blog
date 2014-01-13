@@ -7,8 +7,7 @@ $this->breadcrumbs=array(
 
 <article class="entry" id="entry-<?php echo $data->id; ?>">
 	<h1 class="title"><?php echo CHtml::encode($data->title); ?></h1>
-	<small class="postmeta"><?php echo date('M jS, Y', $data->create_time); ?> by <?php echo $user->username; ?></small>
-
+	<small class="postmeta"><?php echo $data->publish_time ? date('M jS, Y', $data->publish_time) : 'unpublished'; ?> by <?php echo $user->username; ?></small>
 	<?php echo $data->content; ?>
 </article>
 
@@ -16,6 +15,7 @@ $this->breadcrumbs=array(
 	<h3><?php echo Yii::t('mdular', 'Tags'); ?>:</h3>
 	<p>
 		<?php 
+		// TODO: make tag widget to clean up the view file
 		$tagData = explode(',', $data->tags);
 		$tagOutput = array();
 		$tagCount = count($tagData);

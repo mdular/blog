@@ -10,6 +10,7 @@
 		'status',
 		'create_time',
 		'update_time',
+		'publish_time',
 		'author_id',
 	),
 )); ?>

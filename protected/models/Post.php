@@ -11,6 +11,7 @@
  * @property integer $status
  * @property integer $create_time
  * @property integer $update_time
+ * @property integer $publish_time
  * @property integer $author_id
  *
  * The followings are the available model relations:
@@ -63,7 +64,7 @@ class Post extends CActiveRecord
       
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('title, content, tags, status, create_time, update_time, author_id', 'safe', 'on'=>'search'),
+			array('title, content, tags, status, create_time, update_time, publish_time, author_id', 'safe', 'on'=>'search'),
 		);
 	}
   
@@ -79,8 +80,6 @@ class Post extends CActiveRecord
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		$relations = array(
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 			
@@ -114,6 +113,7 @@ class Post extends CActiveRecord
 			'status' => 'Status',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
+			'publish_time' => 'Publish Time',
 			'author_id' => 'Author',
 		);
 	}
@@ -136,6 +136,7 @@ class Post extends CActiveRecord
 		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time);
+		$criteria->compare('publish_time',$this->publish_time);
 		$criteria->compare('author_id',$this->author_id);
 
 		return new CActiveDataProvider($this, array(
@@ -152,15 +153,28 @@ class Post extends CActiveRecord
   
   protected function beforeSave(){
   	if(parent::beforeSave()){
-      if($this->isNewRecord){
-        $this->create_time = $this->update_time = time();
-        $this->author_id = Yii::app()->user->id;
-      }else{
-        $this->update_time = time();
-      }
-      return true;
+
+  		// if new post, set create_time, author
+		if($this->isNewRecord){
+			$this->create_time = $this->update_time = time();
+			$this->author_id = Yii::app()->user->id;
+		}else{
+			$this->update_time = time();
+		}
+
+		// if post status was STATUS_DRAFT and is published, set publish_time
+	    if ($this->_oldStatus == self::STATUS_DRAFT && $this->status != self::STATUS_DRAFT) {
+	    	$this->publish_time = time();
+	    }
+
+	    // if post status was NOT STATUS_DRAFT and is unpublished, unset publish time
+	    if ($this->_oldStatus != self::STATUS_DRAFT && $this->status == self::STATUS_DRAFT) {
+	    	$this->publish_time = '';
+	    }
+
+		return true;
     }else{
-      return false;
+		return false;
     }
   }
   
