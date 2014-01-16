@@ -14,20 +14,7 @@ $this->breadcrumbs=array(
 <div class="tags">
 	<h3><?php echo Yii::t('mdular', 'Tags'); ?>:</h3>
 	<p>
-		<?php 
-		// TODO: make tag widget to clean up the view file
-		$tagData = explode(',', $data->tags);
-		$tagOutput = array();
-		$tagCount = count($tagData);
-
-		for ($i = 0; $i < $tagCount; $i++) {
-			$label = CHtml::encode($tagData[$i]);
-			$url = Yii::app()->createUrl('site/tag', array('tag' => trim($tagData[$i])));
-
-			$tagOutput[] = CHtml::link($label, $url);
-		}
-		?>
-		<?php echo implode(',', $tagOutput); ?>
+		<?php $this->widget('TagPortlet', array('tags' => $data->tags)) ?>
 	</p>
 </div>
 
