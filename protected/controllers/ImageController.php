@@ -86,7 +86,7 @@ class ImageController extends Controller
 				$uploadedFile->saveAs(Yii::app()->basePath . Yii::app()->params['imagePath'] . $fileName);
 
 				$model->file = $fileName;
-				$model->save(); // TODO: prevent this triggering update_time creation (beforeSave in Image model)
+				$model->save();
 
 				$this->redirect(array('view','id'=>$model->id));
 			}
