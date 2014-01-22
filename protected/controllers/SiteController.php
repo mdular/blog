@@ -29,7 +29,7 @@ class SiteController extends Controller
 		$criteria = new CDbCriteria(array(
 			'condition' => 'status = ' . Post::STATUS_PUBLISHED,
 			'order'     => 'create_time DESC',
-			'with'      => 'commentCount'
+			//'with'      => 'commentCount'
     	));
     
 		$dataProvider=new CActiveDataProvider('Post', array(
@@ -58,7 +58,7 @@ class SiteController extends Controller
 		$criteria = new CDbCriteria(array(
 			'condition' => 'status = ' . Post::STATUS_PUBLISHED,
 			'order'     => 'create_time DESC',
-			'with'      => 'commentCount'
+			//'with'      => 'commentCount'
     	));
 		$criteria->addSearchCondition('tags', $tag);
 
