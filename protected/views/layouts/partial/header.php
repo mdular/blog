@@ -77,7 +77,7 @@
         ),
       )); ?>
     </div>
-
+    <?php /*
     <div>
       <h3>/opt/pile</h3><!-- TODO: collapsible / accordion for RESS -->
       <?php $this->widget('zii.widgets.CMenu',array(
@@ -87,6 +87,6 @@
         ),
       )); ?>
     </div>
-
+    */ ?>
   </nav>
 </header>
