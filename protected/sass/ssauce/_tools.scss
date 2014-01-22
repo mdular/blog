@@ -1,5 +1,5 @@
 /**
-* directional mixins and helpers
+* little helpers
 * @author Markus J Doetsch http://mdular.com
 */
 
@@ -32,7 +32,7 @@
   $acolor: transparentize($color, 1 - $alpha);
 
   // fallback -> currently not needed since IE8+ falls back to filters and we don't support lower browsers
-  //background: $color;
+  background: $color;
 
   // progressive
   background: $acolor;
