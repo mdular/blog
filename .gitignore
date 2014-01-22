@@ -4,6 +4,8 @@
 vendor
 private
 composer.lock
+Gemfile.lock
+node_modules
 protected/.sass-cache
 dev.mdular.com.php
 mdular.dev.php
