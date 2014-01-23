@@ -18,13 +18,14 @@ $this->breadcrumbs=array(
 	</p>
 </div>
 
-<?php /* TODO: suggested posts
 <div class="suggestions">
-	<h3><?php echo Yii:t('mdular', 'Suggested reads'); ?>:</h3>
-	## read other posts (short list with headlines)
-	# random posts for now, later based on tag similarity / popularity from cached data / scoring
+	<h3><?php echo Yii::t('mdular', 'Suggested reads'); ?>:</h3>
+	<p>
+	<?php foreach($relatedPosts as $relatedPost): ?>
+	<a href="<?php echo Yii::app()->createUrl('post/index', array('id' => $relatedPost->id)) ?>"><?php echo $relatedPost->title ?></a><br>
+	<?php endforeach; ?>
+	</p>
 </div>
-*/ ?>
 
 <?php if(Yii::app()->params['commentsEnabled']): ?>
 

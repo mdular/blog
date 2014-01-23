@@ -43,6 +43,9 @@ class PostController extends Controller
 
 	/**
 	* show post based on id or permalink
+	*
+	* TODO: use only permalink? different params for id / permalink?
+	*
 	* @param mixed $id the ID or permalink-url
 	*/
 	public function actionIndex($id = null)
@@ -57,6 +60,7 @@ class PostController extends Controller
 
 		/* 
 		// TODO: make permalink work, ensure rewrite rule
+		// ensure that permalink-field is never numeric value OR change post id url?
 		if (!is_numeric($id)) {
 
 			$id = mb_strrichr($id, '-', false, 'UTF-8');
@@ -73,22 +77,14 @@ class PostController extends Controller
 
 		$this->pageTitle=Yii::app()->name . ' - ' . $postModel->title;
 
-/* seperate query ... no longer needed since comments relation in Post model
-		if(Yii::app()->params['commentsEnabled']) {
-			$commentCriteria = new CDbCriteria(array(
-				'condition' => 'status = ' . Comment::STATUS_APPROVED . ' AND post_id = ' . $postModel->id,
-				'order'     => 'create_time ASC'
-	    	));
+		$relatedPosts = $this->findRelatedPostsByTags($postModel)->getData();
+		// TODO: consider tag occurence scoring or some other kind of weight
+		shuffle($relatedPosts);
 
-			$commentDataProvider=new CActiveDataProvider('Comment', array(
-				'criteria' => $commentCriteria,
-			));
-		}
-*/
 		$this->render('index',array(
 			'data'=>$postModel,
 			'user'=>$userModel,
-			//'commentData' => $commentDataProvider ? $commentDataProvider : null
+			'relatedPosts' => $relatedPosts,
 		));
 	}
 
@@ -170,33 +166,34 @@ class PostController extends Controller
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
   
-  protected function afterDelete(){
-    parent::afterDelete();
-    Comment::model()->deletaAll('post_id = '.$this->id);
-    Tag::model()->updateFrequency($this->tags, '');
-  }
+	protected function afterDelete(){
+		parent::afterDelete();
+		Comment::model()->deletaAll('post_id = '.$this->id);
+		Tag::model()->updateFrequency($this->tags, '');
+	}
 
 	/**
 	 * Lists all models.
 	 */
 	public function actionList()
 	{
-	  $criteria = new CDbCriteria(array(
-      'condition' => 'status = ' . Post::STATUS_PUBLISHED,
-      'order'     => 'create_time DESC',
-      'with'      => 'commentCount'
-    ));
-    if(isset($_GET['tag'])){
-      $criteria->addSearchCondition('tags', $_GET['tag']);
-    }
-    
-	$dataProvider=new CActiveDataProvider('Post', array(
-      'pagination' => array(
-        'pageSize' => 5,
-      ),
-      'criteria' => $criteria,
-    ));
-    
+		$criteria = new CDbCriteria(array(
+			'condition' => 'status = ' . Post::STATUS_PUBLISHED,
+			'order'     => 'create_time DESC',
+			'with'      => 'commentCount'
+		));
+
+		if(isset($_GET['tag'])){
+			$criteria->addSearchCondition('tags', $_GET['tag']);
+		}
+
+		$dataProvider=new CActiveDataProvider('Post', array(
+			'pagination' => array(
+				'pageSize' => 5,
+			),
+			'criteria' => $criteria,
+		));
+
 		$this->render('list',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -255,25 +252,24 @@ class PostController extends Controller
 	 */
 	public function loadModel($id)
 	{
-	  if($this->_model === null){
-	    if(isset($id)){
-	      if(Yii::app()->user->isGuest){
-	        $condition = 'status = '.Post::STATUS_PUBLISHED
-	         . ' OR status = ' . Post::STATUS_ARCHIVED;
-	      }else{
-	        $condition = '';
-	      }
-    		$this->_model = Post::model()->findByPk($id, $condition);
-	    }
-  		if($this->_model===null){
-        	throw new CHttpException(404,'The requested page does not exist.');
-  		}
-	  }
+		if($this->_model === null){
+			if(isset($id)){
+				if(Yii::app()->user->isGuest){
+					$condition = 'status = '.Post::STATUS_PUBLISHED
+						. ' OR status = ' . Post::STATUS_ARCHIVED;
+				}else{
+					$condition = '';
+				}
+				$this->_model = Post::model()->findByPk($id, $condition);
+			}
+			if($this->_model===null){
+				throw new CHttpException(404,'The requested page does not exist.');
+			}
+		}
 		return $this->_model;
 	}
 
 	/**
-	* TODO: unnecessary -> delete?
 	* return the data model based on the permalink key
 	* @param string $id the link
 	* @returns _model
@@ -282,6 +278,8 @@ class PostController extends Controller
 	{
 		if ($this->_model === null) {
 			if(isset($id)) {
+
+				// TODO: find by permalink field
 				$this->_model = Post::model()->findByAttributes(array('title' => $id)); // TODO: use permalink field instead
 			}
 			if($this->_model===null) {
@@ -302,5 +300,34 @@ class PostController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+
+	/**
+	* find other posts with similar tags
+	*/
+	protected function findRelatedPostsByTags($postModel) {
+		$tags = explode(',', $postModel->tags);
+
+		$criteria = new CDbCriteria(array(
+			'select' => 'title, id',
+			'condition' => 'status = ' . Post::STATUS_PUBLISHED,
+			'limit'		=> 5
+	    ));
+
+	    $criteria->addCondition('id <> ' . $postModel->id);
+
+	    $likeCondition = '';
+	    foreach ($tags as $tag) {
+	    	$likeCondition .= ($tags[0] === $tag ? '' : ' OR ') . '(tags LIKE \'%' . trim($tag) . '%\')';
+	    }
+
+	    $criteria->addCondition($likeCondition);
+	    
+		$dataProvider=new CActiveDataProvider('Post', array(
+	      'criteria' => $criteria,
+	    ));
+
+	    return $dataProvider;
 	}
 }
