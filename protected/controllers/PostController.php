@@ -78,8 +78,6 @@ class PostController extends Controller
 		$this->pageTitle=Yii::app()->name . ' - ' . $postModel->title;
 
 		$relatedPosts = $this->findRelatedPostsByTags($postModel)->getData();
-		// TODO: consider tag occurence scoring or some other kind of weight
-		shuffle($relatedPosts);
 
 		$this->render('index',array(
 			'data'=>$postModel,
@@ -305,14 +303,18 @@ class PostController extends Controller
 
 	/**
 	* find other posts with similar tags
+	* TODO: consider tag occurence scoring or some other kind of weight
+	* TODO: RAND() is slow on big tables, create alternative
+	* http://stackoverflow.com/questions/4329396/mysql-select-10-random-rows-from-600k-rows-fast
 	*/
 	protected function findRelatedPostsByTags($postModel) {
 		$tags = explode(',', $postModel->tags);
 
 		$criteria = new CDbCriteria(array(
-			'select' => 'title, id',
+			'select'=>'title, id, RAND() as rand',
+			'limit'		=> 4,
 			'condition' => 'status = ' . Post::STATUS_PUBLISHED,
-			'limit'		=> 5
+			'order' => 'rand',
 	    ));
 
 	    $criteria->addCondition('id <> ' . $postModel->id);
@@ -326,6 +328,7 @@ class PostController extends Controller
 	    
 		$dataProvider=new CActiveDataProvider('Post', array(
 	      'criteria' => $criteria,
+	      'pagination' => false
 	    ));
 
 	    return $dataProvider;
