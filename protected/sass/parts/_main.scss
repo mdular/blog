@@ -26,6 +26,10 @@
 article.entry {
   word-wrap: break-word;
 
+  & + .tags {
+    margin-top: 50px;
+  }
+
   & p:first-of-type {
     margin-top: .5em;
   }

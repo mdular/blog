@@ -1,26 +1,4 @@
 /* layout */
-html, body {
-  //overflow: auto;
-  //position:relative;
-}
-
-html {
-  //height:100%;
-}
-
-body {
-  //min-height: 100%;
-}
-
-    /*
-  .csstransforms3d body {
-  -moz-perspective: 500px;
-  -ms-perspective: 500px;
-  -o-perspective: 500px;
-  -webkit-perspective: 500px;
-  }
-  */
-  
 #background {
   position:fixed; 
   width:100%; 
@@ -57,7 +35,6 @@ body {
 #site { 
   display: inline-block;
   vertical-align: top;
-  //min-width:770px;
   min-width: 650px;
   max-width: 80%;
   min-height: 100%;
@@ -135,10 +112,13 @@ body {
 
 
 /* layouts */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
+/*
+@media only screen and (max-width: 1000px) {
+  #site { 
+    max-width: 90%;
+  }
 }
+*/
 
 /* TODO: make default layout mobile first! */
 /* TODO: create variant with navigation on top for smaller screens (also disables background if page is shown -> via js) */

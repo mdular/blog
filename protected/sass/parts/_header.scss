@@ -34,6 +34,10 @@ header {
     a:hover {
       color: inherit;
     }
+
+    > sup {
+      white-space: nowrap;
+    }
   }
 
 h3#subtitle {
