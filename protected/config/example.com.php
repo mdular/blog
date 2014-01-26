@@ -171,5 +171,6 @@ return array(
 				//'height' => 40,
 				//'padding' => 0,
 		),
+		'postCutoffLength' => 400, // 0 to disable
 	),
 );
