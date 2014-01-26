@@ -8,7 +8,13 @@
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+<?php /*
+	<div class="row">
+		<?php echo $form->labelEx($model,'permalink'); ?>
+		<?php echo $form->textField($model,'permalink',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($model,'permalink'); ?>
+	</div>
+*/ ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>128)); ?>

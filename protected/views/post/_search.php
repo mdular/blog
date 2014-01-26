@@ -11,6 +11,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'permalink'); ?>
+		<?php echo $form->textField($model,'permalink'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>128)); ?>
 	</div>

@@ -4,6 +4,7 @@
 	'data'=>$data,
 	'attributes'=>array(
 		'id',
+		'permalink',
 		'title',
 		'content',
 		'tags',

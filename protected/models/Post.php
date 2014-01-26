@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table '{{post}}':
  * @property integer $id
+ * @property integer $permalink
  * @property string $title
  * @property string $content
  * @property string $tags
@@ -54,17 +55,17 @@ class Post extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, content, status', 'required'),
-			array('title', 'length', 'max'=>128),
+			array('permalink, title', 'length', 'max'=>128),
 			array('status', 'in', 'range'=>array(1,2,3)),
-			array('tags', 'match', 
+			array('tags', 'match',
 		        'pattern' => '/^[\w\s,]+$/',
-		        'message' => 'Tags can only contain word characters.' 
+		        'message' => 'Tags can only contain word characters.',
 	        ),
 		    array('tags', 'normalizeTags'),
       
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('title, content, tags, status, create_time, update_time, publish_time, author_id', 'safe', 'on'=>'search'),
+			array('permalink, title, content, tags, status, create_time, update_time, publish_time, author_id', 'safe', 'on'=>'search'),
 		);
 	}
   
@@ -82,8 +83,6 @@ class Post extends CActiveRecord
 	{
 		$relations = array(
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
-			
-			//'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 
 		if(Yii::app()->params['commentsEnabled']) {
@@ -107,6 +106,7 @@ class Post extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'permalink' => 'Permalink',
 			'title' => 'Title',
 			'content' => 'Content',
 			'tags' => 'Tags',
@@ -130,6 +130,7 @@ class Post extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('permalink',$this->permalink);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('tags',$this->tags,true);
@@ -145,16 +146,16 @@ class Post extends CActiveRecord
 		));
 	}
   
-  public function getUrl(){
-    return Yii::app()->createUrl('post/index', array(
-      'id'    => $this->id // TODO: readable permalink with '-id' at the end
-    ));
-  }
+	public function getUrl(){
+		return Yii::app()->createUrl('post/index', array(
+		  'id'    => $this->permalink
+		));
+	}
   
-  protected function beforeSave(){
-  	if(parent::beforeSave()){
+	protected function beforeSave(){
+		if(parent::beforeSave()){
 
-  		// if new post, set create_time, author
+		// if new post, set create_time, author
 		if($this->isNewRecord){
 			$this->create_time = $this->update_time = time();
 			$this->author_id = Yii::app()->user->id;
@@ -173,42 +174,60 @@ class Post extends CActiveRecord
 	    }
 
 		return true;
-    }else{
+	}else{
 		return false;
-    }
-  }
+	}
+	}
   
-  protected function afterSave(){
-    parent::afterSave();
+	protected function afterSave(){
+		parent::afterSave();
 
-    $newTags = $this->tags;
-    $oldTags = $this->_oldTags;
+		$newTags = $this->tags;
+		$oldTags = $this->_oldTags;
 
-    // if post status was STATUS_DRAFT and is published, force tag addition / frequency increment
-    if ($this->_oldStatus == self::STATUS_DRAFT && $this->status != self::STATUS_DRAFT) {
-    	$oldTags = '';
-    }
+		// if post status was STATUS_DRAFT and is published, force tag addition / frequency increment
+		if ($this->_oldStatus == self::STATUS_DRAFT && $this->status != self::STATUS_DRAFT) {
+			$oldTags = '';
+		}
 
-    // if post status was NOT STATUS_DRAFT and is unpublished, force tag decrement / removal
-    if ($this->_oldStatus != self::STATUS_DRAFT && $this->status == self::STATUS_DRAFT) {
-    	$newTags = '';
-    }
+		// if post status was NOT STATUS_DRAFT and is unpublished, force tag decrement / removal
+		if ($this->_oldStatus != self::STATUS_DRAFT && $this->status == self::STATUS_DRAFT) {
+			$newTags = '';
+		}
 
-    //Tag::model()->updateFrequency($this->_oldTags, $this->tags);
-    Tag::model()->updateFrequency($oldTags, $newTags);
-  }
+		//Tag::model()->updateFrequency($this->_oldTags, $this->tags);
+		Tag::model()->updateFrequency($oldTags, $newTags);
+
+		// generate permalink if not set
+		if (empty($this->permalink)) {
+			$this->permalink = $this->id . '-' . $this->toPermalink($this->title);
+			$this->save();
+		}
+	}
   
-  protected function afterFind(){
-    parent::afterFind();
-    $this->_oldTags = $this->tags;
-    $this->_oldStatus = $this->status;
-  }
+	protected function afterFind(){
+		parent::afterFind();
+		$this->_oldTags = $this->tags;
+		$this->_oldStatus = $this->status;
+	}
 
-  /**
-  * method to process the tag frequency
-  * note: for once-time use on empty tag-table
-  */
-  public function processTags() {
-  	Tag::model()->updateFrequency('', $this->tags);
-  }
+	/**
+	* method to process the tag frequency
+	* note: for once-time use on empty tag-table
+	*/
+	public function processTags() {
+		Tag::model()->updateFrequency('', $this->tags);
+	}
+
+	public function toPermalink($str)
+	{
+		if($str !== mb_convert_encoding( mb_convert_encoding($str, 'UTF-32', 'UTF-8'), 'UTF-8', 'UTF-32') )
+			$str = mb_convert_encoding($str, 'UTF-8', mb_detect_encoding($str));
+		$str = htmlentities($str, ENT_NOQUOTES, 'UTF-8');
+		$str = preg_replace('`&([a-z]{1,2})(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', '\\1', $str);
+		$str = html_entity_decode($str, ENT_NOQUOTES, 'UTF-8');
+		$str = preg_replace(array('`[^a-z0-9]`i','`[-]+`'), '-', $str);
+		$str = strtolower( trim($str, '-') );
+		return $str;
+	}
 }

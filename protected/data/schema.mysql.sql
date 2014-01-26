@@ -58,6 +58,7 @@ CREATE TABLE `tbl_lookup` (
 
 CREATE TABLE `tbl_post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `permalink` varchar(128) NOT NULL DEFAULT '',
   `title` varchar(128) NOT NULL DEFAULT '',
   `content` text NOT NULL,
   `tags` text,

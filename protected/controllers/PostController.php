@@ -58,20 +58,6 @@ class PostController extends Controller
 
 		$id = filter_var($id, FILTER_SANITIZE_STRING);
 
-		/* 
-		// TODO: make permalink work, ensure rewrite rule
-		// ensure that permalink-field is never numeric value OR change post id url?
-		if (!is_numeric($id)) {
-
-			$id = mb_strrichr($id, '-', false, 'UTF-8');
-
-			return;
-
-			//$model = $this->loadModelByPermalink($id);
-			//$model = $this->loadModel($id);
-		}
-		*/
-
 		$postModel = $this->loadModel($id);
 		$userModel = User::model()->findByPk($postModel->author_id);
 
@@ -222,6 +208,7 @@ class PostController extends Controller
 			$processed++;
 		}
 
+		// TODO: send processed as message
 		echo "processed: " . $processed;
 		echo "</pre>";
 
@@ -258,6 +245,12 @@ class PostController extends Controller
 				}else{
 					$condition = '';
 				}
+
+				if (!is_numeric($id)) {
+					$end = mb_strpos($id, '-', 0, 'UTF-8');
+					$id = mb_substr($id, 0, $end, 'UTF-8');
+				}
+
 				$this->_model = Post::model()->findByPk($id, $condition);
 			}
 			if($this->_model===null){
@@ -332,5 +325,32 @@ class PostController extends Controller
 	    ));
 
 	    return $dataProvider;
+	}
+
+	/**
+	 * create permalinks for all posts
+	 */
+	public function actionCreateAllPermalinks() {
+		// find published posts
+		$criteria = new CDbCriteria();
+		$models = Post::model()->findAll($criteria);
+
+		echo "<pre>";
+		echo "total: " . count($models) . PHP_EOL;
+
+		$processed = 0;
+
+		// process permalinks (via Post::afterSave) for loaded posts
+		foreach ($models as $model) {
+			$model->save();
+			$processed++;
+		}
+
+		// TODO: send as message
+		echo "processed: " . $processed;
+		echo "</pre>";
+
+		$this->redirect('/post/admin');
+
 	}
 }
