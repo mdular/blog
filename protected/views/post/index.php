@@ -22,7 +22,7 @@ $this->breadcrumbs=array(
 	<h3><?php echo Yii::t('mdular', 'Suggested reads'); ?>:</h3>
 	<p>
 	<?php foreach($relatedPosts as $relatedPost): ?>
-	<a href="<?php echo Yii::app()->createUrl('post/index', array('id' => $relatedPost->id)) ?>"><?php echo $relatedPost->title ?></a><br>
+	<a href="<?php echo Yii::app()->createUrl('post/index', array('id' => $relatedPost->permalink)) ?>"><?php echo $relatedPost->title ?></a><br>
 	<?php endforeach; ?>
 	</p>
 </div>

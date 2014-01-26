@@ -304,7 +304,7 @@ class PostController extends Controller
 		$tags = explode(',', $postModel->tags);
 
 		$criteria = new CDbCriteria(array(
-			'select'=>'title, id, RAND() as rand',
+			'select'=>'title, permalink, RAND() as rand',
 			'limit'		=> 4,
 			'condition' => 'status = ' . Post::STATUS_PUBLISHED,
 			'order' => 'rand',
