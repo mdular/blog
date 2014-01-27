@@ -54,8 +54,8 @@ return array(
 				// route / to site/index
 				'' => 'site/index',
 
-				// route /post/0-post-permalink to /post/index?id=0
-				'post/<id:\d+[-][-\w]+>'=>'post/index',
+				// route /post/0-post-permalink or /post/0 to /post/index?id=0
+				'post/<id:\d+[-][-\w]+|\d+>'=>'post/index',
 
 				// route /tag/mytag to /site/index?tag=mytag
 				'tag/<tag:[ \t\w]+>'=>'site/tag',

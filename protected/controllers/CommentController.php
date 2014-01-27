@@ -121,6 +121,7 @@ class CommentController extends Controller
 		}
 
 		// redirect back to post
+		// TODO: this should use the permalink!
 		$this->redirect(array('post/index', 'id' => $postid));
 	}
 
