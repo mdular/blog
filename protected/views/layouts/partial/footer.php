@@ -1,7 +1,7 @@
     </div><!-- /#site -->
   </div><!-- /#sitewrapper -->
   <footer>
-    &copy; <?php echo date('Y'); ?> Markus J Doetsch &ndash; <a href="<?php echo $this->createUrl('site/page', array('view'=>'imprint')) ?>" title="Imprint">Imprint</a>
+    &copy; <?php echo date('Y'); ?> Markus J Doetsch &ndash; <a href="<?php echo $this->createUrl('site/page', array('view'=>'imprint')) ?>" title="Imprint" rel="nofollow">Imprint</a>
   </footer>
 
   <?php Yii::app()->getClientScript()->registerScriptFile(Yii::app()->params['backgroundUrl'], CClientScript::POS_END, array(/*'async' => true, 'defer' => true*/)); ?>

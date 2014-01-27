@@ -73,6 +73,7 @@
       <h3>Links</h3><!-- TODO: collapsible / accordion for RESS -->
       <?php $this->widget('zii.widgets.CMenu',array(
         'items'=>array(
+          array('label' => 'Timo', 'url' => 'http://timorunge.de/', 'linkOptions' => array('target' => '_blank')),
           array('label' => 'Sui', 'url' => 'http://blog.sui.li/', 'linkOptions' => array('target' => '_blank')),
         ),
       )); ?>
