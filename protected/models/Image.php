@@ -29,7 +29,7 @@ class Image extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('file', 'required'),
+			array('file', 'required', 'on' => 'insert'),
 			array('title, file', 'length', 'max'=>128),
 
 			array('create_time, update_time', 'numerical', 'integerOnly'=>true),
@@ -125,6 +125,14 @@ class Image extends CActiveRecord
 	}
 
 	/**
+	 * save the file to disk
+	 */
+	public function saveImage($uploadedFile, $fileName)
+	{
+		$uploadedFile->saveAs(Yii::app()->basePath . Yii::app()->params['imagePath'] . $fileName);
+	}
+
+	/**
 	 * Remove the image file from disk
 	 */
 	public function removeImage($fileName = null)
@@ -132,7 +140,12 @@ class Image extends CActiveRecord
 		if (!$fileName) {
 			$fileName = $this->file;
 		}
-		unlink(Yii::app()->basePath . Yii::app()->params['imagePath'] . $fileName);
+
+		$path = Yii::app()->basePath . Yii::app()->params['imagePath'] . $fileName;
+
+		if (is_file($path)) {
+			unlink($path);
+		}
 	}
 
 	/**

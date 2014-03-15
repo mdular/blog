@@ -68,23 +68,22 @@ class ImageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+		// TODO: handle in $this->saveUploadedImage()
 		if(isset($_POST['Image']))
 		{
 			// get uploaded file reference
 			$uploadedFile = CUploadedFile::getInstance($model, 'file');
 
-			if (!empty($uploadedFile) && !$uploadedFile->hasError) {
-				$model->attributes=$_POST['Image'];
-				$model->file = $uploadedFile;
-				$model->size = $uploadedFile->getSize();
-			} else if (!empty($uploadedFile)) {
-				echo $uploadedFile->error;
-			}
+			$model->attributes = $_POST['Image'];
 
-			if($model->save()) {
-				$fileName = $model->id . '-' . $uploadedFile->getName();
-				$uploadedFile->saveAs(Yii::app()->basePath . Yii::app()->params['imagePath'] . $fileName);
+			// validate and save
+			if($this->setImageAttributes($model, $uploadedFile) && $model->save()) {
 
+				// since the id is not known on creation, we generate the filename after saving the model first
+				$fileName = $this->createFileName($model, $uploadedFile);
+				$model->saveImage($uploadedFile, $fileName);
+
+				// set the file field and save the model again
 				$model->file = $fileName;
 				$model->save();
 
@@ -95,6 +94,28 @@ class ImageController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	* set image attributes for model
+	*/
+	protected function setImageAttributes($model, $uploadedFile)
+	{
+		// file upload ok?
+		if (!empty($uploadedFile) && !$uploadedFile->hasError) {
+
+			$model->file = $uploadedFile;
+			$model->size = $uploadedFile->getSize();
+			// TODO: add type to schmema & model
+			//$model->type = $uploadedFile->getType();
+
+			return true;
+		} else if (!empty($uploadedFile)) {
+
+			echo $uploadedFile->error;
+		}
+
+		return false;
 	}
 
 	/**
@@ -109,21 +130,31 @@ class ImageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Image']))
-		{
+		if(isset($_POST['Image'])) {
+
 			$currentFile = $model->file;
+			$model->attributes = $_POST['Image'];
+			$model->file = $currentFile;
 
-			// TODO: enable file update
+			$uploadedFile = CUploadedFile::getInstance($model, 'file');
 
-			$model->attributes=$_POST['Image'];
-			if($model->save()) {
+			// if a file was uploaded
+			if ($uploadedFile) {
+				
+				$model->file = null;				
 
-				// delete old image if new one was uploaded
-				/*
-				if ($currentFile !== $model->file) {
+				if ($this->setImageAttributes($model, $uploadedFile)) {
+					
+					// set the file field
+					$model->file = $this->createFileName($model, $uploadedFile);
+
+					// delete old image and save new one
 					$model->removeImage($currentFile);
+					$model->saveImage($uploadedFile, $model->file);
 				}
-				*/
+			}
+
+			if($model->save()) {
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -131,6 +162,14 @@ class ImageController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+	/**
+	 * create the file name
+	 */
+	protected function createFileName($model, $uploadedFile)
+	{
+		return $model->id . '-' . $uploadedFile->getName();
 	}
 
 	/**
