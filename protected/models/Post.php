@@ -201,7 +201,8 @@ class Post extends CActiveRecord
 		// generate permalink if not set
 		if (empty($this->permalink)) {
 			$this->permalink = $this->id . '-' . $this->toPermalink($this->title);
-			$this->save();
+            $this->isNewRecord = false;
+			$this->saveAttributes(array('permalink'));
 		}
 	}
   
