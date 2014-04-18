@@ -1,6 +1,7 @@
 .DS_Store
 .project
 .svn
+.idea
 vendor
 private
 composer.lock
@@ -14,3 +15,18 @@ public/assets/*
 public/demos
 public/img/upload/*
 public/js/tinymce
+package.json
+protected/data/schema.sqlite.sql
+protected/views/site/pages/imprint.php
+protected/views/site/pages/test.php
+public/img/info.png
+public/img/info2.png
+public/img/placekitten-150.jpg
+public/js/lib/zepto.1.1.2.js
+protected/controllers/MagicController.php
+protected/views/magic/egypt.php
+protected/views/magic/index.php
+protected/views/magic/splash.php
+patch.diff
+protected/models/Post.php.rej
+protected/models/postshit.php
