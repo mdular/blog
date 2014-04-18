@@ -23,10 +23,6 @@ public/img/info.png
 public/img/info2.png
 public/img/placekitten-150.jpg
 public/js/lib/zepto.1.1.2.js
-protected/controllers/MagicController.php
-protected/views/magic/egypt.php
-protected/views/magic/index.php
-protected/views/magic/splash.php
 patch.diff
 protected/models/Post.php.rej
 protected/models/postshit.php
