@@ -51,7 +51,14 @@ class Post extends CActiveRecord
         
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(array('title, content, status', 'required'), array('permalink, title', 'length', 'max' => 128), array('status', 'in', 'range' => array(1, 2, 3)), array('tags', 'match', 'pattern' => '/^[\w\s,]+$/', 'message' => 'Tags can only contain word characters.',), array('tags', 'normalizeTags'),
+        return array(
+            array('title, content, status', 'required'),
+            array('permalink, title', 'length', 'max' => 128),
+            array('status', 'in', 'range' => array(1, 2, 3)),
+            array('tags', 'match', 'pattern' => '/^[\w\s,]+$/',
+                'message' => 'Tags can only contain word characters.',
+            ),
+            array('tags', 'normalizeTags'),
         
         // The following rule is used by search().
         // Please remove those attributes that should not be searched.
@@ -69,12 +76,19 @@ class Post extends CActiveRecord
      * @return array relational rules.
      */
     public function relations() {
-        $relations = array('author' => array(self::BELONGS_TO, 'User', 'author_id'),);
+        $relations = array(
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+        );
         
         if (Yii::app()->params['commentsEnabled']) {
-            $relations['comments'] = array(self::HAS_MANY, 'Comment', 'post_id', 'condition' => 'comments.status=' . Comment::STATUS_APPROVED, 'order' => 'comments.create_time ASC');
+            $relations['comments'] = array(self::HAS_MANY, 'Comment', 'post_id',
+                'condition' => 'comments.status=' . Comment::STATUS_APPROVED,
+                'order' => 'comments.create_time ASC'
+            );
             
-            $relations['commentCount'] = array(self::STAT, 'Comment', 'post_id', 'condition' => 'status=' . Comment::STATUS_APPROVED);
+            $relations['commentCount'] = array(self::STAT, 'Comment', 'post_id',
+                'condition' => 'status=' . Comment::STATUS_APPROVED
+            );
         }
         
         return $relations;
@@ -84,7 +98,18 @@ class Post extends CActiveRecord
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels() {
-        return array('id' => 'ID', 'permalink' => 'Permalink', 'title' => 'Title', 'content' => 'Content', 'tags' => 'Tags', 'status' => 'Status', 'create_time' => 'Create Time', 'update_time' => 'Update Time', 'publish_time' => 'Publish Time', 'author_id' => 'Author',);
+        return array(
+            'id' => 'ID',
+            'permalink' => 'Permalink',
+            'title' => 'Title',
+            'content' => 'Content',
+            'tags' => 'Tags',
+            'status' => 'Status',
+            'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
+            'publish_time' => 'Publish Time',
+            'author_id' => 'Author',
+        );
     }
     
     /**
@@ -109,11 +134,16 @@ class Post extends CActiveRecord
         $criteria->compare('publish_time', $this->publish_time);
         $criteria->compare('author_id', $this->author_id);
         
-        return new CActiveDataProvider($this, array('criteria' => $criteria, 'sort' => array('defaultOrder' => 'create_time DESC')));
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'sort' => array('defaultOrder' => 'create_time DESC')
+        ));
     }
     
     public function getUrl() {
-        return Yii::app()->createUrl('post/index', array('id' => $this->permalink));
+        return Yii::app()->createUrl('post/index', array(
+            'id' => $this->permalink
+        ));
     }
     
     protected function beforeSave() {
