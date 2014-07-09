@@ -6,16 +6,13 @@ vendor
 private
 composer.lock
 Gemfile.lock
-node_modules
 protected/.sass-cache
 dev.mdular.com.php
 mdular.dev.php
-protected/runtime/*
 public/assets/*
 public/demos
 public/img/upload/*
 public/js/tinymce
-package.json
 protected/data/schema.sqlite.sql
 protected/views/site/pages/imprint.php
 protected/views/site/pages/test.php
@@ -23,6 +20,3 @@ public/img/info.png
 public/img/info2.png
 public/img/placekitten-150.jpg
 public/js/lib/zepto.1.1.2.js
-patch.diff
-protected/models/Post.php.rej
-protected/models/postshit.php
