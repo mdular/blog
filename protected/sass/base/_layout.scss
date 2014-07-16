@@ -1,7 +1,7 @@
 /* layout */
 #background {
-  position:fixed; 
-  width:100%; 
+  position:fixed;
+  width:100%;
   height:100%;
   z-index:-1; // 0 or higher disables scrollbars... o.O
   transform: translateZ(0);
@@ -32,7 +32,7 @@
   -webkit-transform: translateZ(0);
 }
 
-#site { 
+#site {
   display: inline-block;
   vertical-align: top;
   min-width: 650px;
@@ -52,13 +52,13 @@
     -ms-transform: none;
     -o-transform: none;
     -webkit-transform:none;
-    
+
     $torigin: center top;
     -moz-transform-origin: $torigin;
     -ms-transform-origin: $torigin;
     -o-transform-origin: $torigin;
     -webkit-transform-origin: $torigin;
-    
+
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
@@ -68,12 +68,12 @@
     /*
   }
   .csstransforms3d #site.collapsed {
-   
+
     -moz-transform: rotateX(70deg);
     -ms-transform: rotateX(70deg);
     -o-transform: rotateX(70deg);
     -webkit-transform: rotateX(70deg);
-    
+
     -moz-transform-origin: center top;
     -ms-transform-origin: center top;
     -o-transform-origin: center top;
@@ -82,16 +82,16 @@
     */
 
   #site > header {
-    float:left; 
-    width:220px; 
+    float:left;
+    width:220px;
     height: 100%;
     padding:25px 20px 0;
     border-right:1px solid $color_1_light;
     //box-sizing: border-box;
     @include box-sizing(border-box);
   }
-  #site > section#main { 
-    padding:25px 10px 0 10px; 
+  #site > section#main {
+    padding:25px 10px 0 10px;
     @include clearfix;
     //box-sizing: border-box;
     @include box-sizing(border-box);
@@ -104,7 +104,7 @@
     font-size:.8em;
     font-weight:normal;
     padding: 0 5px;
-    
+
     background:white;
   }
 
@@ -114,7 +114,7 @@
 /* layouts */
 /*
 @media only screen and (max-width: 1000px) {
-  #site { 
+  #site {
     max-width: 90%;
   }
 }
@@ -161,7 +161,7 @@
             padding-left: 0;
           }
         }
-      }      
+      }
     }
   }
 
