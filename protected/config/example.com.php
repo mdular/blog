@@ -154,8 +154,8 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'example@your.domain',
+		'adminEmail'=>'example@your.domain', // this is used in contact page
+		'siteOwner' => 'Your Name',
 		'backgroundUrl' => '//play.mdular.com/webdungeons/webdungeons.js',
 		'commentsEnabled' => true,
 		'commentDefaultStatus' => 'STATUS_PENDING',
@@ -172,5 +172,7 @@ return array(
 				//'padding' => 0,
 		),
 		'postCutoffLength' => 400, // 0 to disable
+		'GAid' => null, // Google Analytics id
+		'GAdomain' => null // Google Analytics domain
 	),
 );
