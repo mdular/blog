@@ -7,11 +7,7 @@ private
 composer.lock
 Gemfile.lock
 protected/.sass-cache
-dev.mdular.com.php
-mdular.dev.php
-public/assets/*
 public/demos
-public/img/upload/*
 public/js/tinymce
 protected/data/schema.sqlite.sql
 protected/views/site/pages/imprint.php
