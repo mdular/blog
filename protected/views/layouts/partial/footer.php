@@ -1,16 +1,16 @@
     </div><!-- /#site -->
   </div><!-- /#sitewrapper -->
   <footer>
-    &copy; <?php echo date('Y'); ?> Markus J Doetsch &ndash; <a href="<?php echo $this->createUrl('site/page', array('view'=>'imprint')) ?>" title="Imprint" rel="nofollow">Imprint</a>
+    &copy; <?php echo date('Y'); ?> <?php echo Yii::app()->params['siteOwner']; ?> &ndash; <a href="<?php echo $this->createUrl('site/page', array('view'=>'imprint')) ?>" title="Imprint" rel="nofollow">Imprint</a>
   </footer>
 
-  <?php Yii::app()->getClientScript()->registerScriptFile(Yii::app()->params['backgroundUrl'], CClientScript::POS_END, array(/*'async' => true, 'defer' => true*/)); ?>
+  <?php Yii::app()->getClientScript()->registerScriptFile(Yii::app()->params['backgroundUrl'], CClientScript::POS_END, array(/*'async' => true, 'defer' => true TODO: fix jquery dep */)); ?>
   
-  <?php if(Yii::app()->user->isGuest): ?>
+  <?php if(Yii::app()->user->isGuest && !empty(Yii::app()->params['GAid']) && !empty(Yii::app()->params['GAdomain'])): ?>
   <script type="text/javascript">
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-5044949-5']);
-    _gaq.push(['_setDomainName', 'mdular.com']);
+    _gaq.push(['_setAccount', Yii::app()->params['GAid']]);
+    _gaq.push(['_setDomainName', Yii::app()->params['GAdomain']]);
     _gaq.push(['_trackPageview']);
 
     var initGA = function() {
