@@ -127,7 +127,9 @@
     filter: none;
 
     &.inactive {
-      display: none;
+      filter: none;
+      -webkit-filter: none;
+      -ms-filter: none;
     }
   }
 
