@@ -19,7 +19,7 @@ class PostController extends Controller
 			'accessControl', // perform access control for CRUD operations
             array(
                 'COutputCache + index',
-                'duration'=>1000,
+                'duration'=>60,
                 'varyByParam'=>array('id'),
             ),
 		);
