@@ -11,7 +11,7 @@ Use:
 
 - For local development, define APPLICATION_ENV = 'dev'
 - Adjust protected/views/site/pages/about.php
-- Create protected/views/site/pages/imprint.php and populate it with your info
+- Edit protected/views/site/pages/imprint.php and populate it with your info
 - Create additional pages
 - Adjust the menu entries in protected/views/layouts/partial/header.php
 
