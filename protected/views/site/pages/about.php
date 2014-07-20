@@ -8,17 +8,13 @@ $this->breadcrumbs=array(
 
 <p>
 My name is Markus. I'm currently living in Berlin, where i enjoy the parks 
-in summer and compensate the lack of sun in winter. 
+in summer and compensate the lack of sun in winter. This is my personal space.
 </p>
 
 <p>
-Apart from working in IT at Rocket Internet i like getting into little side projects, 
-and this personal space will serve as a platform.
-</p>
-
-<p>
-At the moment i'm rather focused on the technical side of mdular.com, so please forgive 
-the lack of polishing and sparse content ;)
+Apart from working in IT I like getting into little side projects, and this 
+personal space will serve as a platform of expression, which could be 
+trivial or fictional.
 </p>
 
 <p>Feel free to <?php echo CHtml::link('drop me a line', $this->createUrl('site/contact')); ?>.</p>

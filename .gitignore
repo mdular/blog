@@ -10,7 +10,6 @@ protected/.sass-cache
 public/demos
 public/js/tinymce
 protected/data/schema.sqlite.sql
-protected/views/site/pages/imprint.php
 protected/views/site/pages/test.php
 public/img/info.png
 public/img/info2.png
