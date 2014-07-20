@@ -9,8 +9,8 @@
   <?php if(Yii::app()->user->isGuest && !empty(Yii::app()->params['GAid']) && !empty(Yii::app()->params['GAdomain'])): ?>
   <script type="text/javascript">
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', Yii::app()->params['GAid']]);
-    _gaq.push(['_setDomainName', Yii::app()->params['GAdomain']]);
+    _gaq.push(['_setAccount', <?php echo Yii::app()->params['GAid'] ?>]);
+    _gaq.push(['_setDomainName', <?php echo Yii::app()->params['GAdomain'] ?>]);
     _gaq.push(['_trackPageview']);
 
     var initGA = function() {
