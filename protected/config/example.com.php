@@ -73,6 +73,13 @@ return array(
       ),
     ),
 
+    // Cache adapter
+    /*
+    'cache'=>array(
+      'class'=>'system.caching.CApcCache',
+    ),
+    */
+
     // SQLite database
     /*
     'db'=>array(
@@ -89,6 +96,7 @@ return array(
       'password' => '',
       'charset' => 'utf8',
       'tablePrefix' => 'tbl_',
+      'schemaCachingDuration'=>300,
       //'enableProfiling'=>true,
     ),
 

@@ -20,7 +20,7 @@ class PostController extends Controller
             array(
                 'COutputCache + index',
                 'duration'=>60,
-                'varyByParam'=>array('id'),
+                'varyByRoute'=>true,
             ),
 		);
 	}

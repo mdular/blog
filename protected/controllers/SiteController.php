@@ -2,6 +2,20 @@
 
 class SiteController extends Controller
 {
+    /**
+     * @return array action filters
+     */
+    public function filters()
+    {
+        return array(
+            array(
+                'COutputCache + index',
+                'duration'=>60,
+                'varyByParam'=>array('id'),
+            ),
+        );
+    }
+
 	/**
 	 * Declares class-based actions.
 	 */
