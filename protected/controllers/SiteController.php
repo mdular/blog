@@ -8,11 +8,15 @@ class SiteController extends Controller
     public function filters()
     {
         return array(
+            // cache homepage + static pages
+            // TODO: needs proper invalidation, or use fragment cache for view content
+            /*
             array(
-                'COutputCache + index',
+                'COutputCache + page, index',
                 'duration'=>60,
-                'varyByParam'=>array('id'),
+                'varyByRoute'=>true,
             ),
+            */
         );
     }
 

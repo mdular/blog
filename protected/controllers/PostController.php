@@ -17,11 +17,12 @@ class PostController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-            array(
+            // TODO: needs proper invalidation, or use fragment cache for view content
+            /*array(
                 'COutputCache + index',
                 'duration'=>60,
                 'varyByRoute'=>true,
-            ),
+            ),*/
 		);
 	}
 
