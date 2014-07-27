@@ -1,7 +1,6 @@
 Installation:
 
 - Run 'composer install' to install dependencies
-- Download tinymce 4 and place it in public/js
 - Create a server / vhost environment
 - Ensure protected/runtime and public/img/uploads are writeable by the server
 - Copy & adjust protected/config/example.com.php | replace example.com with the host name
