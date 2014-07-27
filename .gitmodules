@@ -1,3 +1,0 @@
-[submodule "public/js/tinymce"]
-	path = public/js/tinymce
-	url = https://github.com/tinymce/tinymce.git

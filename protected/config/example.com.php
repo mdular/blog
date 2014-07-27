@@ -157,7 +157,7 @@ return array(
         'mdular-admin'=>array(
           'baseUrl' => '/',
           'js' => array(
-            'js/tinymce/tinymce.min.js',
+            '//tinymce.cachefly.net/4.1/tinymce.min.js',
             'js/admin.js'
           ),
         ),
