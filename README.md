@@ -5,6 +5,7 @@ Installation:
 - Ensure protected/runtime and public/img/uploads are writeable by the server
 - Copy & adjust protected/config/example.com.php | replace example.com with the host name
 - Run protected/data/schema.mysql.sql on the database configured above
+    sudo mysql mdular_dev < protected/data/schema.mysql.sql 
 
 Use:
 
