@@ -17,7 +17,7 @@
     <div>
       <h3>Admin</h3><!-- TODO: collapsible / accordion for RESS -->
       <?php /* TODO: user role admin */ ?>
-      <?php 
+      <?php
         $this->widget('zii.widgets.CMenu',array(
           'items'=>array(
             array('label'=>'Post admin', 'url'=>array('post/admin')),
@@ -45,7 +45,7 @@
         ),
       )); ?>
     </div>
-    
+
     <div>
       <h3>Info</h3><!-- TODO: collapsible / accordion for RESS -->
       <?php $this->widget('zii.widgets.CMenu',array(
@@ -75,6 +75,9 @@
         'items'=>array(
           array('label' => 'Timo', 'url' => 'http://timorunge.de/', 'linkOptions' => array('target' => '_blank')),
           array('label' => 'Sui', 'url' => 'http://blog.sui.li/', 'linkOptions' => array('target' => '_blank')),
+          array('label' => 'Fadi', 'url' => 'http://syst3m5.blogspot.de/', 'linkOptions' => array('target' => '_blank')),
+          array('label' => 'Niko', 'url' => 'http://kennyslabs.com/', 'linkOptions' => array('target' => '_blank')),
+          array('label' => 'Ana', 'url' => 'http://anacuco.com/', 'linkOptions' => array('target' => '_blank')),
         ),
       )); ?>
     </div>
