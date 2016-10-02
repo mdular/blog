@@ -64,7 +64,8 @@ class PostController extends Controller
 
 		$id = filter_var($id, FILTER_SANITIZE_STRING);
 
-		$postModel = $this->loadModel($id);
+		// $postModel = $this->loadModel($id);
+		$postModel = $this->loadModelByPermalink($id);
 		$userModel = User::model()->findByPk($postModel->author_id);
 
 		$this->pageTitle=Yii::app()->name . ' - ' . $postModel->title;
@@ -182,7 +183,7 @@ class PostController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-  
+
 	protected function afterDelete(){
 		parent::afterDelete();
 		Comment::model()->deletaAll('post_id = '.$this->id);
@@ -302,9 +303,15 @@ class PostController extends Controller
 	{
 		if ($this->_model === null) {
 			if(isset($id)) {
+				if(Yii::app()->user->isGuest){
+					$condition = 'status = '.Post::STATUS_PUBLISHED
+						. ' OR status = ' . Post::STATUS_ARCHIVED;
+				}else{
+					$condition = '';
+				}
 
-				// TODO: find by permalink field
-				$this->_model = Post::model()->findByAttributes(array('title' => $id)); // TODO: use permalink field instead
+				// find by permalink field
+				$this->_model = Post::model()->findByAttributes(array('permalink' => $id), $condition);
 			}
 			if($this->_model===null) {
 				throw new CHttpException(404,'The requested page does not exist.');
@@ -351,7 +358,7 @@ class PostController extends Controller
 	    }
 
 	    $criteria->addCondition($likeCondition);
-	    
+
 		$dataProvider=new CActiveDataProvider('Post', array(
 	      'criteria' => $criteria,
 	      'pagination' => false
