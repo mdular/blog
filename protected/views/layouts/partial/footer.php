@@ -5,7 +5,9 @@
   </footer>
 
   <?php Yii::app()->getClientScript()->registerScriptFile(Yii::app()->params['backgroundUrl'], CClientScript::POS_END, array(/*'async' => true, 'defer' => true TODO: fix jquery dep */)); ?>
-  
+
+  <script>hljs.initHighlightingOnLoad();</script>
+
   <?php if(Yii::app()->user->isGuest && !empty(Yii::app()->params['GAid']) && !empty(Yii::app()->params['GAdomain'])): ?>
   <script type="text/javascript">
     var _gaq = _gaq || [];
