@@ -60,7 +60,7 @@ return array(
         'post/<id:\d+[-][-\w]+|\d+>'=>'post/index',
 
         // route /tag/mytag to /site/index?tag=mytag
-        'tag/<tag:[ \t\w]+>'=>'site/tag',
+        'tag/<tag:[\t\w\.]+>' => 'site/tag',
 
         // a standard rule mapping site actions
         '<action:(login|logout|contact|tags)>' => 'site/<action>',

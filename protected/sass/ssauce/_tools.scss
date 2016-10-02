@@ -3,10 +3,10 @@
 * @author Markus J Doetsch http://mdular.com
 */
 
-/* 
+/*
  * override compass built-in clearfix with additional compatibility mode
  * in case overflow:hidden is not an acceptable solution
- */ 
+ */
 @mixin clearfix($compatibility-mode: false) {
   @if $compatibility-mode == false {
     overflow: hidden;
@@ -39,6 +39,7 @@
 
   // ie 6, 7 // buggy -> fix if required
   //filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str($acolor)}, endColorstr=##{ie-hex-str($acolor)});
+
   // ie 8
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str($acolor)}, endColorstr=#{ie-hex-str($acolor)})";
 }
@@ -50,4 +51,13 @@
   background-color: $end;
   background-image: -ms-linear-gradient($direction, $start, $end);
   @include background(linear-gradient($direction, $start, $end));
+}
+
+/*
+ * overflow text
+ */
+@mixin overflow-text($type: ellipsis){
+  text-overflow: $type;
+  white-space: nowrap;
+  overflow: hidden;
 }

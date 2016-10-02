@@ -7,7 +7,12 @@ $this->breadcrumbs=array(
 
 <article class="entry" id="entry-<?php echo $data->id; ?>">
 	<h1 class="title"><?php echo CHtml::encode($data->title); ?></h1>
-	<small class="postmeta"><?php echo $data->publish_time ? date('M jS, Y', $data->publish_time) : 'unpublished'; ?> by <?php echo $user->username; ?></small>
+	<small class="postmeta">
+		<?php echo $data->publish_time ? date('M jS, Y', $data->publish_time) : 'unpublished'; ?> by <?php echo $user->username; ?>
+		<?php if (Yii::app()->user->id == $user->id): ?>
+			- <a href="<?php echo Yii::app()->createUrl('post/update', array('id' => $data->id)) ?>">Edit Post</a>
+		<?php endif; ?>
+	</small>
 	<?php echo $data->content; ?>
 </article>
 

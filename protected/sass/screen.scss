@@ -2,12 +2,10 @@
 /* framework imports*/
 @import "compass/css3";
 
-// TODO: make modules into framework with separate repo
-/* modules */
+/* ssauce modules */
 @import "ssauce/_directional";
 @import "ssauce/_tools";
 @import "ssauce/_sprite";
-@import "ssauce/_fonticon";
 
 /* theme configuration */
 @import "config/_mdular";

@@ -64,12 +64,19 @@ class PostController extends Controller
 
 		$id = filter_var($id, FILTER_SANITIZE_STRING);
 
-		$postModel = $this->loadModel($id);
+		// $postModel = $this->loadModel($id);
+		$postModel = $this->loadModelByPermalink($id);
 		$userModel = User::model()->findByPk($postModel->author_id);
 
 		$this->pageTitle=Yii::app()->name . ' - ' . $postModel->title;
 
 		$relatedPosts = $this->findRelatedPostsByTags($postModel)->getData();
+
+		if ((int) $postModel->post_type === Post::TYPE_MARKDOWN) {
+			$parser = new \cebe\markdown\GithubMarkdown();
+			$parser->html5 = true;
+			$postModel->content = $parser->parse($postModel->content);
+		}
 
 		$this->render('index',array(
 			'data'=>$postModel,
@@ -103,11 +110,32 @@ class PostController extends Controller
 		if(isset($_POST['Post']))
 		{
 			$model->attributes=$_POST['Post'];
+			$model->post_type = Post::TYPE_HTML;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreateMarkdown()
+	{
+		$model=new Post;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Post']))
+		{
+			$model->attributes=$_POST['Post'];
+			$model->post_type = Post::TYPE_MARKDOWN;
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('createmarkdown',array(
 			'model'=>$model,
 		));
 	}
@@ -155,7 +183,7 @@ class PostController extends Controller
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
-  
+
 	protected function afterDelete(){
 		parent::afterDelete();
 		Comment::model()->deletaAll('post_id = '.$this->id);
@@ -275,9 +303,15 @@ class PostController extends Controller
 	{
 		if ($this->_model === null) {
 			if(isset($id)) {
+				if(Yii::app()->user->isGuest){
+					$condition = 'status = '.Post::STATUS_PUBLISHED
+						. ' OR status = ' . Post::STATUS_ARCHIVED;
+				}else{
+					$condition = '';
+				}
 
-				// TODO: find by permalink field
-				$this->_model = Post::model()->findByAttributes(array('title' => $id)); // TODO: use permalink field instead
+				// find by permalink field
+				$this->_model = Post::model()->findByAttributes(array('permalink' => $id), $condition);
 			}
 			if($this->_model===null) {
 				throw new CHttpException(404,'The requested page does not exist.');
@@ -324,7 +358,7 @@ class PostController extends Controller
 	    }
 
 	    $criteria->addCondition($likeCondition);
-	    
+
 		$dataProvider=new CActiveDataProvider('Post', array(
 	      'criteria' => $criteria,
 	      'pagination' => false

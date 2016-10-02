@@ -50,18 +50,12 @@ pre {
   background: darken($color_mainbg, 5%);
   padding: .2em .5em;
   border-left: .5em solid darken($color_mainbg, 10%);
-  //counter-reset: linenumbers;
 }
-/*
-pre:before {
-    color: #aaa;
-    content: counter(linenumbers);
-    counter-increment: linenumbers;
-    margin-left: -2em;
-    position: absolute;
-    text-align: right;
+
+p code {
+    font-weight: bold;
 }
-*/
+
 
 /* Links */
 

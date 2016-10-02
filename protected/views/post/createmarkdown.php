@@ -10,6 +10,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Post</h1>
+<h1>Create Mardown Post</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_markdownform', array('model'=>$model)); ?>

@@ -1,5 +1,6 @@
 {
     "require": {
-        "yiisoft/yii": "^1.1.16"
+        "yiisoft/yii": "^1.1.16",
+        "cebe/markdown": "^1.1"
     }
 }
