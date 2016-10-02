@@ -15,7 +15,6 @@ if (getenv('APPLICATION_ENV') == 'dev') {
 }
 
 // change the following paths if necessary
-// $yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 //$config=dirname(__FILE__).'/../protected/config/' . $_SERVER['SERVER_NAME'] . '.php';
@@ -28,8 +27,5 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
 // TODO: set timezone from config
 ini_set('date.timezone', 'Europe/Berlin');
-
-//echo $yii;
-// require_once($yii);
 
 Yii::createWebApplication($config)->run();

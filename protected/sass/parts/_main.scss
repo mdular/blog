@@ -3,10 +3,6 @@
   background: rgb(255, 255, 255);
   /* RGBa with 0.6 opacity */
   background: rgba(255, 255, 255, 0.9);
-  /* For IE 5.5 - 7*/
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#A0FFFFFF, endColorstr=#A0FFFFFF);
-  /* For IE 8*/
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#A0FFFFFF, endColorstr=#A0FFFFFF)";
 }
 
 .entry .title,

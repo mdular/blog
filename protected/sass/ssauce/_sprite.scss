@@ -5,19 +5,20 @@
 
 @import "compass/utilities/sprites/base";
 
-@mixin spritemap($name: 'icon', $name2x: 'icon2x') {
+
+@mixin spritemap($name: 'icon', $name2x: 'icon2x', $class-name: 'icon') {
   // custom automatic export of all sprites
   $map: sprite-map("#{$name}/*.png", $spacing: 10px, $dimensions: true);
 
   // base class
-  .#{$name}-sprite {
+  .#{$class-name}-sprite {
     background: $map no-repeat;
   }
 
   // export all sprite-classes
   @each $sprite in sprite-names($map) {
-    .#{$name}-#{$sprite} {
-      @extend .#{$name}-sprite;
+    .#{$class-name}-#{$sprite} {
+      @extend .#{$class-name}-sprite;
       @include sprite-dimensions($map, $sprite);
       @include sprite-background-position($map, $sprite);
 
@@ -36,17 +37,17 @@
     // auto-switches all sprites to 2x variants with background-scaling on HiDPI devices
     @media (min-resolution: 1.5dppx), (min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5),
            (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5) {
-      
+
       // base 2x class
-      .#{$name2x}-sprite {
+      .#{$class-name}2x-sprite {
         background: $map2x no-repeat;
         @include background-size(ceil(image-width(sprite-path($map2x)) / 2) auto);
       }
 
       // export all 2x sprite-classes
       @each $sprite in sprite-names($map) {
-        .#{$name2x}-#{$sprite} {
-          @extend .#{$name2x}-sprite;
+        .#{$class-name}2x-#{$sprite} {
+          @extend .#{$class-name}2x-sprite;
           @include sprite-background-position($map2x, $sprite);
 
           @if sprite_has_selector($map, $sprite, hover) {
@@ -59,32 +60,3 @@
     }
   }
 }
-
-
-
-/* TODO: OBSOLETE but code left until new mixin is is tested for 2x
-$icon2x-sprite-dimensions: true;
-$icon2x-spacing: 20px;
-$icon2x-sprites: sprite-map("icon2x/*.png", $spacing: 10px);
-
-// auto-switches all sprites to 2x variants with background-scaling on HiDPI devices
-@media (min-resolution: 1.5dppx), (min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5),
-       (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5) {
-
-  $name: sprite-map-name($icon-sprites);
-
-  .#{$name}-double {
-    background-image: sprite-url($icon2x-sprites);
-    @include background-size(ceil(image-width(sprite-path($icon2x-sprites)) / 2) auto);
-  }
-
-  @each $sprite in sprite-names($icon-sprites) {
-    .#{$name}-#{$sprite} {
-      @extend .#{$name}-double;
-
-      $coords: sprite-position($icon2x-sprites, $sprite);
-      background-position: nth($coords, 1) nth($coords, 2) / 2;
-    }
-  }
-}
-*/
