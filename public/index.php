@@ -15,7 +15,8 @@ if (getenv('APPLICATION_ENV') == 'dev') {
 }
 
 // change the following paths if necessary
-$yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
+// $yii = dirname(__FILE__) . '/../vendor/yiisoft/yii/framework/yii.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 //$config=dirname(__FILE__).'/../protected/config/' . $_SERVER['SERVER_NAME'] . '.php';
 $config = realpath('../protected/config/' . $_SERVER['SERVER_NAME'] . '.php');
@@ -29,5 +30,6 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 ini_set('date.timezone', 'Europe/Berlin');
 
 //echo $yii;
-require_once($yii);
+// require_once($yii);
+
 Yii::createWebApplication($config)->run();

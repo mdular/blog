@@ -71,6 +71,12 @@ class PostController extends Controller
 
 		$relatedPosts = $this->findRelatedPostsByTags($postModel)->getData();
 
+		if ((int) $postModel->post_type === Post::TYPE_MARKDOWN) {
+			$parser = new \cebe\markdown\GithubMarkdown();
+			$parser->html5 = true;
+			$postModel->content = $parser->parse($postModel->content);
+		}
+
 		$this->render('index',array(
 			'data'=>$postModel,
 			'user'=>$userModel,
@@ -103,11 +109,32 @@ class PostController extends Controller
 		if(isset($_POST['Post']))
 		{
 			$model->attributes=$_POST['Post'];
+			$model->post_type = Post::TYPE_HTML;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionCreateMarkdown()
+	{
+		$model=new Post;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Post']))
+		{
+			$model->attributes=$_POST['Post'];
+			$model->post_type = Post::TYPE_MARKDOWN;
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('createmarkdown',array(
 			'model'=>$model,
 		));
 	}

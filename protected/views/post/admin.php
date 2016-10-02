@@ -7,6 +7,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'List Posts', 'url'=>array('list')),
 	array('label'=>'Create Post', 'url'=>array('create')),
+	array('label'=>'Create Markdown Post', 'url'=>array('createMarkdown')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

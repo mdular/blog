@@ -4,8 +4,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
+	array('label'=>'Manage Posts', 'url'=>array('admin')),
 	array('label'=>'Create Post', 'url'=>array('create')),
-	array('label'=>'Manage Post', 'url'=>array('admin')),
+	array('label'=>'Create Markdown Post', 'url'=>array('createMarkdown')),
 );
 ?>
 

@@ -6,13 +6,18 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Post', 'url'=>array('list')),
+	array('label'=>'List Posts', 'url'=>array('list')),
+	array('label'=>'Manage Posts', 'url'=>array('admin')),
 	array('label'=>'Create Post', 'url'=>array('create')),
+	array('label'=>'Create Markdown Post', 'url'=>array('createMarkdown')),
 	array('label'=>'View Post', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Post', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Update Post <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php if ((int) $model->post_type === Post::TYPE_MARKDOWN): ?>
+	<?php echo $this->renderPartial('_markdownform', array('model'=>$model)); ?>
+<?php else: ?>
+	<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php endif; ?>

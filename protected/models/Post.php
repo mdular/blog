@@ -14,6 +14,7 @@
  * @property integer $update_time
  * @property integer $publish_time
  * @property integer $author_id
+ * @property integer $post_type
  *
  * The followings are the available model relations:
  * @property Comment[] $comments
@@ -24,10 +25,13 @@ class Post extends CActiveRecord
     const STATUS_DRAFT = 1;
     const STATUS_PUBLISHED = 2;
     const STATUS_ARCHIVED = 3;
-    
+
+    const TYPE_HTML = 1;
+    const TYPE_MARKDOWN = 2;
+
     private $_oldTags;
     private $_oldStatus;
-    
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -59,10 +63,11 @@ class Post extends CActiveRecord
                 'message' => 'Tags can only contain word characters.',
             ),
             array('tags', 'normalizeTags'),
-        
+            array('post_type', 'in', 'range' => array(1, 2)),
+
         // The following rule is used by search().
         // Please remove those attributes that should not be searched.
-        array('permalink, title, content, tags, status, create_time, update_time, publish_time, author_id', 'safe', 'on' => 'search'),);
+        array('permalink, title, content, tags, status, create_time, update_time, publish_time, author_id, post_type', 'safe', 'on' => 'search'),);
     }
     
     /**
@@ -109,6 +114,7 @@ class Post extends CActiveRecord
             'update_time' => 'Update Time',
             'publish_time' => 'Publish Time',
             'author_id' => 'Author',
+            'post_type' => 'Post type',
         );
     }
     
@@ -133,7 +139,8 @@ class Post extends CActiveRecord
         $criteria->compare('update_time', $this->update_time);
         $criteria->compare('publish_time', $this->publish_time);
         $criteria->compare('author_id', $this->author_id);
-        
+        $criteria->compare('post_type', $this->post_type);
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'sort' => array('defaultOrder' => 'create_time DESC')
