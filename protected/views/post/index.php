@@ -23,6 +23,7 @@ $this->breadcrumbs=array(
 	</p>
 </div>
 
+<?php if (count($relatedPosts) > 0): ?>
 <div class="suggestions">
 	<h3><?php echo Yii::t('mdular', 'Suggested reads'); ?>:</h3>
 	<p>
@@ -31,6 +32,7 @@ $this->breadcrumbs=array(
 	<?php endforeach; ?>
 	</p>
 </div>
+<?php endif; ?>
 
 <?php if(Yii::app()->params['commentsEnabled']): ?>
 
