@@ -43,34 +43,35 @@ return array(
       'enableCookieValidation'=>true,
     ),
 
-    // uncomment the following to enable URLs in path-format
-    'urlManager'=>array(
-      'urlFormat'=>'path',
-      'showScriptName' => false,
-      'rules'=>array(
-        // http://www.yiiframework.com/doc/guide/1.1/en/topics.url
+    // URLs in path-format
+    'urlManager' => array(
+        'urlFormat' => 'path',
+        'showScriptName' => false,
+        'rules' => array(
+            // http://www.yiiframework.com/doc/guide/1.1/en/topics.url
 
-        // route pagination (must be before blank '' rule)
-        'page/<Post_page:\d+>'=>'site/index',
+            // route pagination (must be before blank '' rule)
+            'page/<Post_page:\d+>' => 'site/index',
 
-        // route / to site/index
-        '' => 'site/index',
+            // route / to site/index
+            '' => 'site/index',
 
-        // route /post/0-post-permalink or /post/0 to /post/index?id=0
-        'post/<id:\d+[-][-\w]+|\d+>'=>'post/index',
+            // route /post/0-post-permalink or /post/0 to /post/index?id=0
+            'post/<id:\d+[-][-\w]+|\d+>' => 'post/index',
 
-        // route /tag/mytag to /site/index?tag=mytag
-        'tag/<tag:[\t\w\.]+>' => 'site/tag',
+            // route /tag/mytag to /site/index?tag=mytag
+            'tag/<tag:[\w\.\s]+>' => 'site/tag',
 
-        // a standard rule mapping site actions
-        '<action:(login|logout|contact|tags)>' => 'site/<action>',
+            // a standard rule mapping site actions
+            '<action:(login|logout|contact|tags)>' => 'site/<action>',
 
-        // mapping static pages
-        '<view:\w+>' => 'site/page',
+            // mapping static pages
+            '<view:\w+>' => 'site/page',
 
-        //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-        //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-      ),
+            // wildcard controller/action routing
+            //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+            //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+        ),
     ),
 
     // Cache adapter
